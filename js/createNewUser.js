@@ -2,10 +2,6 @@ import Component from './component';
 
 class createUser extends Component {
   init() {
-    this.on('document', this.createNewUser.bind(this));
-  }
-
-  createNewUser() {
     const city = document.querySelector('#city');
     const rangeCredit = document.querySelector('#range_credit');
     const firstName = document.querySelector('#first_name');
@@ -15,6 +11,7 @@ class createUser extends Component {
     const zipCode = document.querySelector('#zip_code');
     const createButton = document.querySelector('#createButton');
     const groupId = document.querySelector('.select-dropdown', '.dropdown-trigger');
+
     createButton.addEventListener('click', () => {
       const allllgroups = document.querySelectorAll('.button');
       let grouppost;
@@ -26,13 +23,12 @@ class createUser extends Component {
           grouppost = mymygroup[5];
         }
       });
-
       function createNewProfile() {
         const formData = new FormData();
         formData.append('city', city.value);
         formData.append('credits', Number(rangeCredit.value));
         formData.append('group_id', Number(grouppost));
-        formData.append('name', `${firstName.value}${lastName.value}`);
+        formData.append('name', firstName.value + ' ' + lastName.value);
         formData.append('phone', phone.value);
         formData.append('street', street.value);
         formData.append('zip_code', Number(zipCode.value));
@@ -47,6 +43,9 @@ class createUser extends Component {
         .then(() => console.log)
         .catch(error => error);
     });
+    this.on('click', this.createNewUser.bind(this));
+  }
+  createNewUser() {
     this.emit('createNewUser', this, document);
   }
 }

@@ -2,7 +2,8 @@ import Component from './component';
 
 class putNewUser extends Component {
   init() {
-    this.on('editUser', this.putChangedUser.bind(this));
+    // this.on('editUser', this.putChangedUser.bind(this));
+    this.on('currentTr', this.putChangedUser.bind(this));
   }
 
   putChangedUser(tr) {

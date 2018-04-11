@@ -2,7 +2,7 @@ import Component from './component';
 
 class userEdit extends Component {
   init() {
-    this.on('fetchUser', this.editUser.bind.this);
+    this.on('currentTr', this.editUser.bind(this));
   }
 
   editUser(tr) {
@@ -19,6 +19,21 @@ class userEdit extends Component {
     const street = document.querySelector('#street');
     const zipCode = document.querySelector('#zip_code');
     const label = document.querySelectorAll('.label');
+    const groupId = document.querySelector('.select-dropdown', '.dropdown-trigger');
+    const createButton = document.querySelector('#createButton');
+    const saveButton = document.querySelector('#saveButton');
+    const addButton = document.querySelector('#addButton');
+    addButton.addEventListener('click', () => {
+      firstName.value = '';
+      lastName.value = '';
+      city.value = '';
+      phone.value = '';
+      zipCode.value = '';
+      street.value = '';
+      groupId.value = 'Choose group';
+      createButton.style.display = 'inline';
+      saveButton.style.display = 'none';
+    });
 
     for (let i = 0; i <= 4; i += 1) {
       const list = tr.getElementsByTagName('td')[i];
@@ -37,9 +52,10 @@ class userEdit extends Component {
       label.forEach((element2) => {
         element2.click();
       });
-      let parentgroup = element.classList.item(1);
+      const parentgroup = element.classList.item(1);
       if (parentgroup === idgroup) {
         const isAdmin = element.getAttribute('isAdmin');
+        console.log(isAdmin);
         if (isAdmin === 'true') {
           rangeCredit.setAttribute('disabled', '');
         } else {
@@ -48,11 +64,20 @@ class userEdit extends Component {
             firstName.setAttribute('disabled', '');
             lastName.setAttribute('disabled', '');
             street.setAttribute('disabled', '');
-            zipNode.setAttribute('disabled', '');
+            zipCode.setAttribute('disabled', '');
             city.setAttribute('disabled', '');
             phone.setAttribute('disabled', '');
             groupId.setAttribute('disabled', '');
             rangeCredit.setAttribute('disabled', '');
+          } else if (credits !== '0') {
+            rangeCredit.removeAttribute('disabled');
+            firstName.removeAttribute('disabled');
+            lastName.removeAttribute('disabled');
+            street.removeAttribute('disabled');
+            zipCode.removeAttribute('disabled');
+            city.removeAttribute('disabled');
+            phone.removeAttribute('disabled');
+            groupId.removeAttribute('disabled');
           }
         }
       }
@@ -64,8 +89,7 @@ class userEdit extends Component {
     else if (idgroup === '4') groupId.value = 'Client';
     else if (idgroup === '5') groupId.value = 'Resellers';
     rangeCredit.value = credits;
-    saveuserinvalid = 0;
-    EventListenerPut(tr);
+    // EventListenerPut(tr);
     this.emit('editUser', this, document);
   }
 }
