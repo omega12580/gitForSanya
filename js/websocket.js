@@ -12,6 +12,8 @@ class websocket extends Component {
     };
   }
   arrProccesing(webObj) {
+    const saveButton = document.querySelector('#saveButton');
+    saveButton.style.display = 'none';
     const actionWeb = webObj.action;
     const idWeb = webObj.id;
     const httpslinkpart = 'https://ums-honeybadger.herokuapp.com/';

@@ -2,6 +2,7 @@ import Component from './component';
 
 class userEdit extends Component {
   init() {
+    // this.on('groupRender', this.editUser.bind(this));
     this.on('currentTr', this.editUser.bind(this));
   }
 
